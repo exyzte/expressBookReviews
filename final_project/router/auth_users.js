@@ -84,6 +84,15 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
     }
 });
 
+regd_users.post("/auth/logout", (req, res) => {
+    if (req.session.authorization) {
+        delete req.session.authorization;
+        return res.status(200).send("User successfully logged out");
+    } else {
+        return res.status(404).json({ message: "No active session found." })
+    }
+});
+
 module.exports.authenticated = regd_users;
 module.exports.isValid = isValid;
 module.exports.users = users;
